@@ -55,18 +55,66 @@ int main(){
         }
         nextFile = readdir(dir);
       }
+
+      printf("numDir: %d\n", numDir);
+
       int dirn;
-      if (dirn == 0){
+      if (numDir == 0){
         //printf("THIS SHOULD BE TRUE\n");
         //printf("matchingDirectories[0]: %s\n", matchingDirectories[0]);
         strcpy(line, matchingDirectories[0]);
-      }
-      int lowestComp = sizeof(line);
-      for (dirn = 0; dirn < numDir + 1; dirn++){
-        if (strcmp(matchingDirectories[dirn], line) > 0 && myStrcmp(matchingDirectories[dirn], line) < lowestComp){
-          lowestComp = myStrcmp(matchingDirectories[dirn], line);
-          strncpy(line, matchingDirectories[dirn], lowestComp);
+      }else{
+        int lowestComp = 0;
+        int dirn = 0;
+        int smallestLength = strlen(matchingDirectories[0]);
+        int flip = 1;
+        for(dirn = 1; dirn < numDir + 1; numDir++){
+          if (strlen(matchingDirectories[dirn]) < smallestLength){
+            smallestLength = strlen(matchingDirectories[dirn]);
+          }
         }
+        printf("smallestLength %d\n", smallestLength);
+        for(lowestComp = 0; lowestComp < smallestLength && (flip == 1); lowestComp++){
+          char c = matchingDirectories[0][lowestComp];
+          printf("%c\n", c);
+          
+          for (dirn = 1; dirn < numDir + 1 && (flip == 1); numDir ++){
+            printf("YES\n");
+            if (strcmp(matchingDirectories[dirn], &c) != 0){
+              printf("Here\n");
+              strncpy(line, matchingDirectories[numDir], lowestComp + 1);
+              printf("lowestComp\n");
+              printf("line %s\n", line);
+              flip = 0;
+            }
+          }
+          printf("Did it finish?!\n");
+        }
+        printf("How about this?\n");
+
+        /**
+        int lowestComp = sizeof(matchingDirectories[0]);
+        printf("This is working at least :(\n");
+        for (dirn = 0; dirn < numDir + 1; dirn++){
+          //printf("How about this?\n");
+          //strcmp(matchingDirectories[dirn], line);
+          //printf("B\n");
+          //myStrcmp(matchingDirectories[dirn], line);
+          //printf("A\n");
+          //WHAT I HAVE TO DO IS CHECK FOR SIMILARITIES AMONGST THE DIRECTORIES!
+          printf("lowestComp: %d\n", lowestComp);
+          printf("myStrcmp: %d\n", myStrcmp(matchingDirectories[dirn], line));
+          int i = 0;
+
+
+          if (strcmp(matchingDirectories[dirn], line) > 0 && myStrcmp(matchingDirectories[dirn], line) < lowestComp){
+            printf("Its not going into this?\n");
+            lowestComp = myStrcmp(matchingDirectories[dirn], line);
+            strncpy(line, matchingDirectories[dirn], lowestComp);
+          }
+
+        }
+        **/
       }
       /** PRINT OUT THE REST OF WHATEVER YOU DECIDED TO PUT RIGHT NEXT TO USER INPUT
       char * difference;
